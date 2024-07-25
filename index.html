@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--script JS-->
+    <!--link  estilos css-->
+    <link rel="stylesheet" href="./css/style.css">
+    <!--link js-->
     <script defer src="JS/main.js"></script>
-    <title>Document</title>
+    <!--icono pagina-->
+    <link rel="icon" type="image/png" href="./img/icono-pagina.png">
+    <title>Hacer un pedido</title>    
+
 </head>
 <body>
-    <h1>Maximiliano Zapata</h1>
+    <header>
+        <h1>Elegir Maderas</h1>
+    </header>
+    <main>
+        <section class="productos">
+            <h2>Tipo de madera</h2>
+            <div id="lista-productos"></div>
+        </section>
+        <section class="carrito">
+            <h2>Madera seleccionada</h2>
+            <div id="contenido-carrito"></div>
+            <button id="vaciar-carrito">Vaciar Carrito</button>
+        </section>
+    </main>
 </body>
 </html>

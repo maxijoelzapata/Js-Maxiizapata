@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(./../img/bg-principal-madera.jpg);
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+h1{
+    font-size: 50px;
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;    color: rgb(50, 50, 197);
+    text-decoration: underline;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+h2{
+    font-size: 35px;
+    color: #ce9324;
+}
+
+section {
+    background-color: rgb(221, 201, 201);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 45%;
+}
+
+.producto, .carrito-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ceaf24;
+}
