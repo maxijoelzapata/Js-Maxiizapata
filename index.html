@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--link  estilos css-->
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Carrito de Compras de Madera</title>
     <!--link js-->
-    <script defer src="JS/main.js"></script>
-    <!--icono pagina-->
-    <link rel="icon" type="image/png" href="./img/icono-pagina.png">
-    <title>Hacer un pedido</title>    
-
+    <script defer src="JS/api.js"></script>
+    <script defer src="JS/app.js"></script>
+    <!--link estilo-->
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <header>
-        <h1>Elegir Maderas</h1>
-    </header>
-    <main>
-        <section class="productos">
-            <h2>Tipo de madera</h2>
-            <div id="lista-productos"></div>
-        </section>
-        <section class="carrito">
-            <h2>Madera seleccionada</h2>
-            <div id="contenido-carrito"></div>
-            <button id="vaciar-carrito">Vaciar Carrito</button>
-        </section>
-    </main>
+    <h1>Compra de Madera</h1>
+    <div id="productos"></div>
+    <div id="carrito">
+        <h2>Carrito de Compras</h2>
+        <div id="carrito-items"></div>
+        <p id="total">Total: $0</p>
+        <button id="finalizar-pedido" class="btn">Finalizar Pedido</button>
+    </div>
+
+    <div id="formulario-container" style="display: none;">
+        <h2>Finalizar Pedido</h2>
+        <form id="formulario">
+            <!-- Resumen del pedido dinámicamente -->
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" required>
+            <button type="submit" class="btn">Enviar Pedido</button>
+        </form>
+    </div>
+
+    <!-- <script src="js/api.js"></script>
+    <script src="js/app.js"></script> -->
 </body>
 </html>
