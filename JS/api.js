@@ -1,25 +1,4 @@
-
-const productos = [
-    {
-        id: 1,
-        nombre: 'Madera de Pino',
-        precio: 50600,
-        img: 'img/pino.jpg'
-    },
-    {
-        id: 2,
-        nombre: 'Madera de Roble',
-        precio: 68200,
-        img: 'img/roble.jpg' 
-    },
-    {
-        id: 3,
-        nombre: 'Madera de Cedro',
-        precio: 71300,
-        img: 'img/cedro.jpg'
-    }
-];
-
+// api.js
 async function obtenerProductos() {
     try {
         const response = await fetch('./data/productos.json'); 

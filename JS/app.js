@@ -1,4 +1,4 @@
-//Manejo del carrito y eventos
+// app.js
 const productosContainer = document.getElementById('productos');
 const carritoItemsContainer = document.getElementById('carrito-items');
 const totalContainer = document.getElementById('total');
@@ -6,6 +6,7 @@ const finalizarPedidoButton = document.getElementById('finalizar-pedido');
 const formularioContainer = document.getElementById('formulario-container');
 const formulario = document.getElementById('formulario');
 let carrito = [];
+let productos = []; // Definir globalmente para usar en los eventos
 
 // Mostrar los productos en el DOM
 function mostrarProductos(productos) {
@@ -40,6 +41,18 @@ function actualizarCarrito() {
     });
 
     totalContainer.textContent = `Total: $${total}`;
+
+    // Guardar el carrito en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+// Cargar carrito desde localStorage
+function cargarCarrito() {
+    const carritoGuardado = localStorage.getItem('carrito');
+    if (carritoGuardado) {
+        carrito = JSON.parse(carritoGuardado);
+        actualizarCarrito();
+    }
 }
 
 // Agregar al carrito
@@ -90,13 +103,31 @@ finalizarPedidoButton.addEventListener('click', () => {
         return;
     }
 
-    mostrarResumenPedido(); 
-    formularioContainer.style.display = 'block';
+    const resumen = carrito.map(item => `${item.nombre} - $${item.precio} x ${item.cantidad}`).join('\n');
+    const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+    Swal.fire({
+        title: 'Resumen del Pedido',
+        text: `${resumen}\n\nTotal a pagar: $${total}`,
+        icon: 'info',
+        confirmButtonText: 'Finalizar Compra'
+    }).then(result => {
+        if (result.isConfirmed) {
+            mostrarResumenPedido();
+            formularioContainer.style.display = 'block';
+        }
+    });
 });
 
 // Mostrar resumen del pedido
 function mostrarResumenPedido() {
+    // Limpiar cualquier resumen previo
+    const resumenExistente = document.querySelector('#formulario-container .resumen-pedido');
+    if (resumenExistente) {
+        resumenExistente.remove();
+    }
+
     const resumenContainer = document.createElement('div');
+    resumenContainer.classList.add('resumen-pedido');
     resumenContainer.innerHTML = `<h3>Resumen del Pedido</h3>`;
     
     carrito.forEach(item => {
@@ -108,7 +139,9 @@ function mostrarResumenPedido() {
     const totalResumen = document.createElement('p');
     const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
     totalResumen.textContent = `Total a pagar: $${total}`;
+    resumenContainer.appendChild(totalResumen);
 
+    // Insertar el resumen antes del formulario
     formularioContainer.insertBefore(resumenContainer, formulario);
 }
 
@@ -121,7 +154,6 @@ formulario.addEventListener('submit', (e) => {
     const email = document.getElementById('email').value;
     const direccion = document.getElementById('direccion').value;
 
-
     Swal.fire('Pedido Enviado', `Gracias, ${nombre} ${apellido}. Tu pedido ha sido enviado a ${direccion}.`, 'success');
 
     // Limpiar carrito y formulario
@@ -129,6 +161,16 @@ formulario.addEventListener('submit', (e) => {
     actualizarCarrito();
     formulario.reset();
     formularioContainer.style.display = 'none';
-});
+    // Eliminar resumen del pedido después de enviar
+    const resumenExistente = document.querySelector('#formulario-container .resumen-pedido');
+    if (resumenExistente) {
+        resumenExistente.remove();
+    }
+})
 
-obtenerProductos().then(mostrarProductos);
+// Cargar productos y mostrar en el DOM
+obtenerProductos().then(productosCargados => {
+    productos = productosCargados;
+    mostrarProductos(productos);
+    cargarCarrito(); // Cargar el carrito al iniciar
+});
